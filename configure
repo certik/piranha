@@ -1,4 +1,4 @@
-CXX=clang cmake \
+CXX=clang CXXFLAGS="-stdlib=libc++ -I$PYTHONHPC/include/c++/v1/" LDFLAGS="-L$PYTHONHPC/lib -lc++" cmake \
     -DBOOST_ROOT=$PYTHONHPC \
     -DGMP_INCLUDE_DIR=$PYTHONHPC/include \
     -DGMP_LIBRARIES=$PYTHONHPC/lib/libgmp.so \
