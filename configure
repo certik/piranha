@@ -1,4 +1,4 @@
-cmake \
+CXX=clang cmake \
     -DBOOST_ROOT=$PYTHONHPC \
     -DGMP_INCLUDE_DIR=$PYTHONHPC/include \
     -DGMP_LIBRARIES=$PYTHONHPC/lib/libgmp.so \
