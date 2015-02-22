@@ -30,6 +30,8 @@
 #include "../src/mp_integer.hpp"
 #include "../src/settings.hpp"
 
+#include "a.h"
+
 using namespace piranha;
 
 // Fateman's polynomial multiplication test number 1. Calculate:
@@ -42,5 +44,5 @@ BOOST_AUTO_TEST_CASE(fateman1_test)
 	if (boost::unit_test::framework::master_test_suite().argc > 1) {
 		settings::set_n_threads(boost::lexical_cast<unsigned>(boost::unit_test::framework::master_test_suite().argv[1u]));
 	}
-	BOOST_CHECK_EQUAL((fateman1<integer,kronecker_monomial<>>().size()),135751u);
+	BOOST_CHECK_EQUAL((fateman1<myint,kronecker_monomial<>>().size()),135751u);
 }
