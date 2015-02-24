@@ -30,6 +30,21 @@
 #include "../src/mp_integer.hpp"
 #include "../src/settings.hpp"
 
+#include "a.h"
+
+namespace piranha { namespace math {
+
+template <typename T>
+struct multiply_accumulate_impl<T,T,T,typename std::enable_if<std::is_same<T,myint>::value>::type>
+{
+void operator()(T &x, const T &y, const T &z) const
+{
+            x.addmul(y,z);
+}
+};
+
+}}
+
 using namespace piranha;
 
 // Fateman's polynomial multiplication test number 2. Calculate:
@@ -42,5 +57,5 @@ BOOST_AUTO_TEST_CASE(fateman2_test)
 	if (boost::unit_test::framework::master_test_suite().argc > 1) {
 		settings::set_n_threads(boost::lexical_cast<unsigned>(boost::unit_test::framework::master_test_suite().argv[1u]));
 	}
-	BOOST_CHECK_EQUAL((fateman2<integer,kronecker_monomial<>>().size()),635376u);
+	BOOST_CHECK_EQUAL((fateman2<myint,kronecker_monomial<>>().size()),635376u);
 }
