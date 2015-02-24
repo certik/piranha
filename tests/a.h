@@ -3,49 +3,86 @@
 
 #include <iostream>
 
+#include <gmp.h>
+#define PTR(x)   ((x)->_mp_d)
+
 class myint
 {
 private:
-    int i_;
+    mpz_t z_;
 public:
-    myint() : i_{0} {}
-    myint(int i) : i_{i} {}
+    myint() {
+        mpz_init(z_);
+    }
+    myint(int i) {
+        mpz_init(z_);
+        mpz_set_si(z_, i);
+    }
+    // Copy constructor and assignment
+    myint(const myint& i) {
+        mpz_init(z_);
+        mpz_set(z_, i.z_);
+    }
+    myint& operator=(const myint& i) {
+        mpz_set(z_, i.z_);
+        return *this;
+    }
+    // Move constructor and assignment
+    myint(myint&& i) noexcept {
+        PTR(z_) = NULL;
+        mpz_swap(z_, i.z_);
+    }
+    myint& operator=(myint&& i) noexcept {
+        mpz_swap(z_, i.z_);
+        return *this;
+    }
+    ~myint() {
+        mpz_clear(z_);
+    }
     std::ostream& to_ostream(std::ostream &out) const
     {
-        out << i_;
+        out << mpz_get_si(z_);
         return out;
     }
     bool eq(const myint &b) const
     {
-        return i_ == b.i_;
+        return mpz_cmp(z_, b.z_) == 0;
     }
     myint add(const myint &b) const
     {
-        return myint(i_+b.i_);
+        myint r;
+        mpz_add(r.z_, z_, b.z_);
+        return r;
     }
     void iadd(const myint &b)
     {
-        i_ += b.i_;
+        mpz_add(z_, z_, b.z_);
     }
     myint sub(const myint &b) const
     {
-        return myint(i_-b.i_);
+        myint r;
+        mpz_sub(r.z_, z_, b.z_);
+        return r;
     }
     void isub(const myint &b)
     {
-        i_ -= b.i_;
+        mpz_sub(z_, z_, b.z_);
     }
     myint neg() const
     {
-        return myint(-i_);
+        myint r;
+        mpz_neg(r.z_, z_);
+        return r;
     }
     myint mul(const myint &b) const
     {
-        return myint(i_*b.i_);
+        myint r;
+        mpz_mul(r.z_, z_, b.z_);
+        return r;
     }
     void imul(const myint &b)
     {
-        i_ *= b.i_;
+        mpz_mul(z_, z_, b.z_);
     }
 };
 

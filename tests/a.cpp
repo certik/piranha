@@ -1,7 +1,7 @@
 /*
    Compile and run for example with:
 
-   g++ -Wall -Wextra -fPIC -g -std=c++11 a.cpp && ./a.out
+   g++ -I$HASHSTACK/include -L$HASHSTACK/lib -Wl,-rpath=$HASHSTACK/lib -Wall -Wextra -fPIC -g -std=c++11 a.cpp -lgmp && ./a.out
 
 */
 
