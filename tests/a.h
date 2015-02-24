@@ -85,6 +85,10 @@ public:
     {
         mpz_mul(z_, z_, b.z_);
     }
+    void addmul(const myint &y, const myint &z)
+    {
+        mpz_addmul(z_, y.z_, z.z_);
+    }
 };
 
 std::ostream& operator<<(std::ostream& out, const myint &i)
