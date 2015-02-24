@@ -32,6 +32,19 @@
 
 #include "a.h"
 
+namespace piranha { namespace math {
+
+template <typename T>
+struct multiply_accumulate_impl<T,T,T,typename std::enable_if<std::is_same<T,myint>::value>::type>
+{
+void operator()(T &x, const T &y, const T &z) const
+{
+            x.addmul(y,z);
+}
+};
+
+}}
+
 using namespace piranha;
 
 // Fateman's polynomial multiplication test number 1. Calculate:
