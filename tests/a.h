@@ -10,6 +10,24 @@ private:
 public:
     myint() : i_{0} {}
     myint(int i) : i_{i} {}
+    // Copy constructor and assignment
+    myint(const myint& i) {
+        i_ = i.i_;
+    }
+    myint& operator=(const myint& i) {
+        i_ = i.i_;
+        return *this;
+    }
+    // Move constructor and assignment
+    myint(myint&& i) noexcept {
+        i_ = i.i_;
+    }
+    myint& operator=(myint&& i) noexcept {
+        i_ = i.i_;
+        return *this;
+    }
+    ~myint() {
+    }
     std::ostream& to_ostream(std::ostream &out) const
     {
         out << i_;
