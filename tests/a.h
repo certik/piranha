@@ -2,6 +2,7 @@
 #define MYINT_H
 
 #include <iostream>
+#include <cstddef>
 
 #include <gmp.h>
 #define PTR(x)   ((x)->_mp_d)
